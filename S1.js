@@ -141,6 +141,86 @@ class singlyLinkList {
       return true;
     }
   }
+
+  // INSERT method
+  insert(index, value) {
+    if (index < 0 || index > this.length) {
+      return false;
+    }
+    if (index === this.length) {
+      this.push(value);
+      return true;
+    }
+    if (index === 0) {
+      this.unshift(value);
+      return true;
+    }
+    let newNode = new Node(value);
+    let previousNode = this.get(index - 1);
+    let temp = previousNode.next;
+    newNode.next = temp;
+    this.length++;
+
+    return true;
+  }
+
+  // Remove Method
+  remove(index) {
+    if (index < 0 || index >= this.length) {
+      return undefined;
+    }
+    if (index === this.length - 1) {
+      return this.pop();
+    }
+    if (index === 0) {
+      return this.shift();
+    }
+
+    let previousNode = this.get(index - 1);
+    let removeNode = previousNode.next;
+    previousNode.next = removeNode.next;
+    this.length--;
+
+    return removeNode;
+  }
+
+  // reverse singlyLinkList
+  reverse() {
+    // make a variable called node and initialize it to the head property
+    let node = this.head;
+    // swap the head and tail
+    this.head = this.tail;
+    this.tail = node;
+
+    // create a next and prev variable
+    let nextNode;
+    let previousNode = null;
+
+    // loop thru the singlyLinkList
+    for (let i = 0; i < this.length; i++) {
+      // set nextNode to be the next property on whatever node
+      nextNode = node.next;
+      // set next property on the node to be whatever previousNode is
+      node.next = previousNode;
+      // set previousNode as the value of the Node
+      previousNode = node;
+      // set node variable to be the value of the next variable
+      node = nextNode;
+    }
+
+    return this;
+  }
+
+  printList() {
+    let array = [];
+    let currentNode = this.head;
+    while (currentNode) {
+      array.push(currentNode.value);
+      currentNode = currentNode.next;
+    }
+    console.log(`------ ${currentNode}------`);
+    return array;
+  }
 }
 
 const list = new singlyLinkList();
@@ -148,14 +228,25 @@ list.push("Benz");
 list.push("Audi");
 list.push("BMW");
 list.push("TOYOTA");
-//console.log(list);
-//list.pop();
-//console.log(list);
-//list.shift();
-//console.log(list);
-//list.unshift("Aston-Martin");
-//console.log(list);
-const getIndexPos = list.get(2);
-console.log(getIndexPos);
-const findNode = list.set(3,"TOYOTA")
-console.log(findNode)
+// console.log(list);
+
+// list.pop();
+// console.log(list);
+// list.shift();
+// console.log(list);
+// list.unshift("Aston-Martin");
+// console.log(list);
+// const getIndexPos = list.get(2);
+// console.log(getIndexPos);
+// const findNode = list.set(3, "TOYOTA");
+// console.log(findNode);
+// const addNewNode = list.insert(3, "Aston-Martin");
+// console.log(addNewNode);
+// const rnode = list.remove(3);
+// console.log(rnode);
+// list.remove(2);
+// list.remove(-1);
+
+console.log(list.printList());
+console.log(list.reverse());
+console.log(list.printList());
